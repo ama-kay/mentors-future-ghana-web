@@ -4,13 +4,26 @@ import { Button } from '@/components/ui/button';
 import { Heart, Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleSocialClick = (platform: string) => {
+    console.log(`${platform} clicked`);
+    // For now, just log the action
+    alert(`This will link to our ${platform} page when connected.`);
+  };
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Organization Info */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center space-x-2 mb-4 cursor-pointer" onClick={() => scrollToSection('home')}>
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
                 <Heart className="h-6 w-6 text-primary-foreground" />
               </div>
@@ -24,16 +37,36 @@ const Footer = () => {
               and sustainable development programs. Together, we're building a brighter future.
             </p>
             <div className="flex space-x-4">
-              <Button size="sm" variant="outline" className="p-2 border-gray-600 text-gray-300 hover:text-white hover:bg-primary">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="p-2 border-gray-600 text-gray-300 hover:text-white hover:bg-primary"
+                onClick={() => handleSocialClick('Facebook')}
+              >
                 <Facebook className="h-4 w-4" />
               </Button>
-              <Button size="sm" variant="outline" className="p-2 border-gray-600 text-gray-300 hover:text-white hover:bg-primary">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="p-2 border-gray-600 text-gray-300 hover:text-white hover:bg-primary"
+                onClick={() => handleSocialClick('Twitter')}
+              >
                 <Twitter className="h-4 w-4" />
               </Button>
-              <Button size="sm" variant="outline" className="p-2 border-gray-600 text-gray-300 hover:text-white hover:bg-primary">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="p-2 border-gray-600 text-gray-300 hover:text-white hover:bg-primary"
+                onClick={() => handleSocialClick('Instagram')}
+              >
                 <Instagram className="h-4 w-4" />
               </Button>
-              <Button size="sm" variant="outline" className="p-2 border-gray-600 text-gray-300 hover:text-white hover:bg-primary">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="p-2 border-gray-600 text-gray-300 hover:text-white hover:bg-primary"
+                onClick={() => handleSocialClick('LinkedIn')}
+              >
                 <Linkedin className="h-4 w-4" />
               </Button>
             </div>
@@ -43,11 +76,46 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="#about" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#programs" className="text-gray-300 hover:text-white transition-colors">Our Programs</a></li>
-              <li><a href="#get-involved" className="text-gray-300 hover:text-white transition-colors">Get Involved</a></li>
-              <li><a href="#news" className="text-gray-300 hover:text-white transition-colors">News & Updates</a></li>
-              <li><a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+              <li>
+                <button 
+                  onClick={() => scrollToSection('about')}
+                  className="text-gray-300 hover:text-white transition-colors text-left"
+                >
+                  About Us
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => scrollToSection('programs')}
+                  className="text-gray-300 hover:text-white transition-colors text-left"
+                >
+                  Our Programs
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => scrollToSection('get-involved')}
+                  className="text-gray-300 hover:text-white transition-colors text-left"
+                >
+                  Get Involved
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => scrollToSection('news')}
+                  className="text-gray-300 hover:text-white transition-colors text-left"
+                >
+                  News & Updates
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => scrollToSection('contact')}
+                  className="text-gray-300 hover:text-white transition-colors text-left"
+                >
+                  Contact Us
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -78,9 +146,24 @@ const Footer = () => {
               © 2024 Mentors Foundation Ghana. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Annual Reports</a>
+              <button 
+                onClick={() => alert('Privacy Policy page coming soon!')}
+                className="text-gray-400 hover:text-white text-sm transition-colors"
+              >
+                Privacy Policy
+              </button>
+              <button 
+                onClick={() => alert('Terms of Service page coming soon!')}
+                className="text-gray-400 hover:text-white text-sm transition-colors"
+              >
+                Terms of Service
+              </button>
+              <button 
+                onClick={() => alert('Annual Reports page coming soon!')}
+                className="text-gray-400 hover:text-white text-sm transition-colors"
+              >
+                Annual Reports
+              </button>
             </div>
           </div>
         </div>

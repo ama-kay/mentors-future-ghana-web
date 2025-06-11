@@ -1,31 +1,72 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Heart, Users, Handshake, ArrowRight } from 'lucide-react';
 
 const GetInvolved = () => {
+  const [selectedAmount, setSelectedAmount] = useState<string | null>(null);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleDonate = () => {
+    console.log('Donate button clicked');
+    // For now, just log the action
+    alert('Thank you for your interest in donating! This feature will be connected to a payment processor soon.');
+  };
+
+  const handleVolunteer = () => {
+    console.log('Volunteer button clicked');
+    scrollToSection('contact');
+  };
+
+  const handlePartnership = () => {
+    console.log('Partnership button clicked');
+    scrollToSection('contact');
+  };
+
+  const handleAmountSelect = (amount: string) => {
+    setSelectedAmount(amount);
+    console.log(`Selected donation amount: ${amount}`);
+  };
+
+  const handleCustomAmount = () => {
+    const amount = prompt('Please enter your custom donation amount:');
+    if (amount) {
+      setSelectedAmount(`$${amount}`);
+      console.log(`Custom donation amount: $${amount}`);
+    }
+  };
+
   const ways = [
     {
       icon: Heart,
       title: "Donate",
       description: "Your financial contribution helps us expand our programs and reach more communities in need.",
       action: "Make a Donation",
-      highlight: true
+      highlight: true,
+      onClick: handleDonate
     },
     {
       icon: Users,
       title: "Volunteer",
       description: "Join our team of dedicated volunteers and make a direct impact in your local community.",
       action: "Join as Volunteer",
-      highlight: false
+      highlight: false,
+      onClick: handleVolunteer
     },
     {
       icon: Handshake,
       title: "Partner with Us",
       description: "Collaborate with us as a corporate partner or organization to amplify our collective impact.",
       action: "Explore Partnerships",
-      highlight: false
+      highlight: false,
+      onClick: handlePartnership
     }
   ];
 
@@ -42,7 +83,7 @@ const GetInvolved = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {ways.map((way, index) => (
-            <Card key={index} className={`text-center border-none shadow-lg ${way.highlight ? 'ring-2 ring-primary' : ''}`}>
+            <Card key={index} className={`text-center border-none shadow-lg hover:shadow-xl transition-shadow ${way.highlight ? 'ring-2 ring-primary' : ''}`}>
               <CardHeader>
                 <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
                   way.highlight ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'
@@ -56,6 +97,7 @@ const GetInvolved = () => {
                 <Button 
                   className={way.highlight ? 'bg-primary hover:bg-primary/90 w-full' : 'w-full'} 
                   variant={way.highlight ? 'default' : 'outline'}
+                  onClick={way.onClick}
                 >
                   {way.action}
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -76,17 +118,33 @@ const GetInvolved = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
               {['$25', '$50', '$100', '$250'].map((amount) => (
-                <Button key={amount} variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                <Button 
+                  key={amount} 
+                  variant={selectedAmount === amount ? "default" : "outline"} 
+                  className={`border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary ${
+                    selectedAmount === amount ? 'bg-primary-foreground text-primary' : ''
+                  }`}
+                  onClick={() => handleAmountSelect(amount)}
+                >
                   {amount}
                 </Button>
               ))}
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8"
+                onClick={handleCustomAmount}
+              >
                 Custom Amount
               </Button>
-              <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 px-8">
+              <Button 
+                size="lg" 
+                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 px-8"
+                onClick={handleDonate}
+              >
                 Donate Now
                 <Heart className="ml-2 h-5 w-5" />
               </Button>
