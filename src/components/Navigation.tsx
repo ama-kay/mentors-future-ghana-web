@@ -1,26 +1,41 @@
 
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Heart, Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== '/') {
+      // If not on homepage, navigate to homepage first
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
+    
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false); // Close mobile menu after navigation
+      setIsMenuOpen(false);
     }
   };
 
   const handleVolunteer = () => {
-    scrollToSection('get-involved');
+    if (location.pathname === '/get-involved') {
+      scrollToSection('get-involved');
+    } else {
+      window.location.href = '/get-involved';
+    }
   };
 
   const handleDonate = () => {
-    // For now, scroll to get-involved section where donation info is
-    scrollToSection('get-involved');
+    if (location.pathname === '/get-involved') {
+      scrollToSection('get-involved');
+    } else {
+      window.location.href = '/get-involved';
+    }
   };
 
   return (
@@ -28,7 +43,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollToSection('home')}>
+          <Link to="/" className="flex items-center space-x-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
               <Heart className="h-6 w-6 text-primary-foreground" />
             </div>
@@ -36,46 +51,46 @@ const Navigation = () => {
               <span className="text-lg font-bold text-foreground">Mentors Foundation</span>
               <span className="text-xs text-muted-foreground">Ghana</span>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => scrollToSection('home')}
+            <Link 
+              to="/"
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               Home
-            </button>
-            <button 
-              onClick={() => scrollToSection('about')}
+            </Link>
+            <Link 
+              to="/about"
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               About Us
-            </button>
-            <button 
-              onClick={() => scrollToSection('programs')}
+            </Link>
+            <Link 
+              to="/programs"
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               Programs
-            </button>
-            <button 
-              onClick={() => scrollToSection('get-involved')}
+            </Link>
+            <Link 
+              to="/get-involved"
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               Get Involved
-            </button>
-            <button 
-              onClick={() => scrollToSection('news')}
+            </Link>
+            <Link 
+              to="/news"
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               News
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
+            </Link>
+            <Link 
+              to="/contact"
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               Contact
-            </button>
+            </Link>
           </div>
 
           {/* CTA Button */}
@@ -101,42 +116,48 @@ const Navigation = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t">
             <div className="flex flex-col space-y-4">
-              <button 
-                onClick={() => scrollToSection('home')}
+              <Link 
+                to="/"
                 className="text-sm font-medium text-foreground hover:text-primary text-left"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Home
-              </button>
-              <button 
-                onClick={() => scrollToSection('about')}
+              </Link>
+              <Link 
+                to="/about"
                 className="text-sm font-medium text-foreground hover:text-primary text-left"
+                onClick={() => setIsMenuOpen(false)}
               >
                 About Us
-              </button>
-              <button 
-                onClick={() => scrollToSection('programs')}
+              </Link>
+              <Link 
+                to="/programs"
                 className="text-sm font-medium text-foreground hover:text-primary text-left"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Programs
-              </button>
-              <button 
-                onClick={() => scrollToSection('get-involved')}
+              </Link>
+              <Link 
+                to="/get-involved"
                 className="text-sm font-medium text-foreground hover:text-primary text-left"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Get Involved
-              </button>
-              <button 
-                onClick={() => scrollToSection('news')}
+              </Link>
+              <Link 
+                to="/news"
                 className="text-sm font-medium text-foreground hover:text-primary text-left"
+                onClick={() => setIsMenuOpen(false)}
               >
                 News
-              </button>
-              <button 
-                onClick={() => scrollToSection('contact')}
+              </Link>
+              <Link 
+                to="/contact"
                 className="text-sm font-medium text-foreground hover:text-primary text-left"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Contact
-              </button>
+              </Link>
               <div className="flex flex-col space-y-2 pt-4">
                 <Button variant="outline" size="sm" onClick={handleVolunteer}>
                   Volunteer

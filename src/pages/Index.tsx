@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,6 +13,7 @@ import Testimonials from '@/components/Testimonials';
 import News from '@/components/News';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import ChatBot from '@/components/ChatBot';
 
 const Index = () => {
   return (
@@ -28,6 +28,7 @@ const Index = () => {
       <News />
       <Contact />
       <Footer />
+      <ChatBot />
     </div>
   );
 };
