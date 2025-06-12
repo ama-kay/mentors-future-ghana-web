@@ -1,11 +1,12 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Heart, Users, Handshake, ArrowRight } from 'lucide-react';
+import PaymentModal from './PaymentModal';
 
 const GetInvolved = () => {
   const [selectedAmount, setSelectedAmount] = useState<string | null>(null);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -15,9 +16,11 @@ const GetInvolved = () => {
   };
 
   const handleDonate = () => {
-    console.log('Donate button clicked');
-    // For now, just log the action
-    alert('Thank you for your interest in donating! This feature will be connected to a payment processor soon.');
+    if (selectedAmount) {
+      setIsPaymentModalOpen(true);
+    } else {
+      alert('Please select a donation amount first.');
+    }
   };
 
   const handleVolunteer = () => {
@@ -73,7 +76,7 @@ const GetInvolved = () => {
   return (
     <section id="get-involved" className="py-20 bg-secondary/50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get Involved</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             There are many ways you can join us in our mission to transform communities across Ghana. 
@@ -107,23 +110,24 @@ const GetInvolved = () => {
           ))}
         </div>
 
-        {/* Donation Section */}
-        <div className="bg-primary text-primary-foreground rounded-lg p-8 md:p-12">
+        {/* Enhanced Donation Section */}
+        <div className="bg-primary text-primary-foreground rounded-lg p-8 md:p-12 animate-scale-in">
           <div className="text-center max-w-3xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">Make a Difference Today</h3>
-            <p className="text-lg text-primary-foreground/80 mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4 animate-fade-in">Make a Difference Today</h3>
+            <p className="text-lg text-primary-foreground/80 mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               Your donation directly supports our programs and helps us reach more communities. 
               Every contribution creates ripples of positive change that last for generations.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-              {['$25', '$50', '$100', '$250'].map((amount) => (
+              {['$25', '$50', '$100', '$250'].map((amount, index) => (
                 <Button 
                   key={amount} 
                   variant={selectedAmount === amount ? "default" : "outline"} 
-                  className={`border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary ${
-                    selectedAmount === amount ? 'bg-primary-foreground text-primary' : ''
+                  className={`border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300 animate-fade-in ${
+                    selectedAmount === amount ? 'bg-primary-foreground text-primary scale-105' : ''
                   }`}
+                  style={{ animationDelay: `${0.1 * index}s` }}
                   onClick={() => handleAmountSelect(amount)}
                 >
                   {amount}
@@ -131,18 +135,18 @@ const GetInvolved = () => {
               ))}
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8"
+                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8 transition-all duration-300 hover:scale-105"
                 onClick={handleCustomAmount}
               >
                 Custom Amount
               </Button>
               <Button 
                 size="lg" 
-                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 px-8"
+                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 px-8 transition-all duration-300 hover:scale-105"
                 onClick={handleDonate}
               >
                 Donate Now
@@ -152,6 +156,12 @@ const GetInvolved = () => {
           </div>
         </div>
       </div>
+
+      <PaymentModal 
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        amount={selectedAmount || '$0'}
+      />
     </section>
   );
 };
