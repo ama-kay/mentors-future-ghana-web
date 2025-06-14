@@ -24,10 +24,10 @@ const Index = () => {
       <About />
       <Programs />
       <Impact />
-      <GetInvolved />
+      {/* <GetInvolved /> */}
       <Testimonials />
-      <News />
-      <Contact />
+      {/* <News /> */}
+      {/* <Contact /> */}
       <Footer />
       <ChatBot />
     </div>
