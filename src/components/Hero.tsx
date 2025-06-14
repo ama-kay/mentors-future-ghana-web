@@ -57,7 +57,7 @@ const Hero = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-white text-white hover:bg-white hover:text-black px-8 py-3"
+              className="border-white text-blue-950 hover:bg-white hover:text-black px-8 py-3"
               onClick={handleWatchStory}
             >
               <Play className="mr-2 h-5 w-5" />
