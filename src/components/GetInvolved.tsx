@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Heart, Users, Handshake, ArrowRight } from 'lucide-react';
 import PaymentModal from './PaymentModal';
 
-const GetInvolved = () => {
+const GetInvolved: React.FC = () => {
   const [selectedAmount, setSelectedAmount] = useState<string | null>(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [volunteerInfo, setVolunteerInfo] = useState({ name: '', email: '', message: '' });
@@ -18,6 +18,10 @@ const GetInvolved = () => {
     } else {
       alert('Please select a donation amount first.');
     }
+  };
+
+  const handleCustomAmount = () => {
+    alert("Custom amount functionality not implemented yet.");
   };
 
   const handleVolunteerToggle = () => {
