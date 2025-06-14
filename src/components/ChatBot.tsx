@@ -99,7 +99,7 @@ const ChatBot = () => {
       {/* Enhanced Floating Chat Button */}
       {!isOpen && (
         <Button
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-xl z-50 bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-110 animate-bounce"
+          className="fixed bottom-40 right-10 h-14 w-14 rounded-full shadow-xl z-50 bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-110 animate-bounce"
           onClick={() => setIsOpen(true)}
         >
           <MessageCircle className="h-6 w-6 animate-pulse" />
@@ -108,7 +108,7 @@ const ChatBot = () => {
 
       {/* Enhanced Chat Window */}
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-80 h-96 shadow-2xl z-50 flex flex-col animate-scale-in border-primary/20">
+        <Card className="fixed bottom-10 right-6 w-80 h-96 shadow-2xl z-50 flex flex-col animate-scale-in border-primary/20">
           <CardHeader className="pb-3 bg-primary text-primary-foreground rounded-t-lg">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg flex items-center gap-2">
@@ -127,7 +127,8 @@ const ChatBot = () => {
             </div>
           </CardHeader>
           
-          <CardContent className="flex-1 flex flex-col p-0">
+         <CardContent className="flex-1 flex flex-col p-0 overflow-y-auto max-h-[400px]">
+
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gradient-to-b from-background to-secondary/20">
               {messages.map((message) => (
@@ -140,15 +141,19 @@ const ChatBot = () => {
                       <Bot className="h-4 w-4 text-primary" />
                     </div>
                   )}
-                  <div
-                    className={`max-w-[70%] rounded-lg p-3 text-sm transition-all duration-300 hover:shadow-md ${
-                      message.isUser
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted hover:bg-muted/80'
-                    }`}
-                  >
-                    {message.text}
-                  </div>
+                      <div
+        className={`max-w-[70%] rounded-lg p-3 text-sm transition-all duration-300 hover:shadow-md overflow-hidden ${
+          message.isUser
+            ? 'bg-primary text-primary-foreground'
+            : 'bg-muted hover:bg-muted/80'
+        }`}
+      >
+        <p className="whitespace-pre-wrap break-words overflow-hidden text-ellipsis">
+          {message.text}
+        </p>
+      </div>
+
+
                   {message.isUser && (
                     <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 animate-scale-in">
                       <User className="h-4 w-4 text-primary" />

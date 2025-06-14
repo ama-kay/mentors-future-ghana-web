@@ -119,12 +119,12 @@ const GetInvolved = () => {
               Every contribution creates ripples of positive change that last for generations.
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 ">
               {['$25', '$50', '$100', '$250'].map((amount, index) => (
                 <Button 
                   key={amount} 
                   variant={selectedAmount === amount ? "default" : "outline"} 
-                  className={`border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300 animate-fade-in ${
+                  className={`border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300 animate-fade-in text-blue-950 ${
                     selectedAmount === amount ? 'bg-primary-foreground text-primary scale-105' : ''
                   }`}
                   style={{ animationDelay: `${0.1 * index}s` }}
@@ -139,7 +139,8 @@ const GetInvolved = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8 transition-all duration-300 hover:scale-105"
+                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8 transition-all duration-300 hover:scale-105 text-blue-950
+ "
                 onClick={handleCustomAmount}
               >
                 Custom Amount
