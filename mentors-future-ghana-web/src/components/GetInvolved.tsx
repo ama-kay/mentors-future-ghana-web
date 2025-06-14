@@ -1,167 +1,206 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Heart, Users, Handshake, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import PaymentModal from './PaymentModal';
 
 const GetInvolved = () => {
-  const [selectedAmount, setSelectedAmount] = useState<string | null>(null);
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [showVolunteerForm, setShowVolunteerForm] = useState(false);
+  const [showPartnerForm, setShowPartnerForm] = useState(false);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const [volunteerData, setVolunteerData] = useState({ name: '', email: '', message: '' });
+  const [partnerData, setPartnerData] = useState({ org: '', contact: '', email: '', message: '' });
 
-  const handleDonate = () => {
+  const handleDonateClick = () => {
     if (selectedAmount) {
       setIsPaymentModalOpen(true);
     } else {
-      alert('Please select a donation amount first.');
+      alert('Please select an amount.');
     }
   };
 
-  const handleVolunteer = () => {
-    console.log('Volunteer button clicked');
-    scrollToSection('contact');
+  const handleVolunteerSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Volunteer:', volunteerData);
+    alert('Thank you for volunteering!');
+    setVolunteerData({ name: '', email: '', message: '' });
+    setShowVolunteerForm(false);
   };
 
-  const handlePartnership = () => {
-    console.log('Partnership button clicked');
-    scrollToSection('contact');
+  const handlePartnerSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Partner:', partnerData);
+    alert('Thank you for your interest in partnering with us!');
+    setPartnerData({ org: '', contact: '', email: '', message: '' });
+    setShowPartnerForm(false);
   };
-
-  const handleAmountSelect = (amount: string) => {
-    setSelectedAmount(amount);
-    console.log(`Selected donation amount: ${amount}`);
-  };
-
-  const handleCustomAmount = () => {
-    const amount = prompt('Please enter your custom donation amount:');
-    if (amount) {
-      setSelectedAmount(`$${amount}`);
-      console.log(`Custom donation amount: $${amount}`);
-    }
-  };
-
-  const ways = [
-    {
-      icon: Heart,
-      title: "Donate",
-      description: "Your financial contribution helps us expand our programs and reach more communities in need.",
-      action: "Make a Donation",
-      highlight: true,
-      onClick: handleDonate
-    },
-    {
-      icon: Users,
-      title: "Volunteer",
-      description: "Join our team of dedicated volunteers and make a direct impact in your local community.",
-      action: "Join as Volunteer",
-      highlight: false,
-      onClick: handleVolunteer
-    },
-    {
-      icon: Handshake,
-      title: "Partner with Us",
-      description: "Collaborate with us as a corporate partner or organization to amplify our collective impact.",
-      action: "Explore Partnerships",
-      highlight: false,
-      onClick: handlePartnership
-    }
-  ];
 
   return (
-    <section id="get-involved" className="py-20 bg-secondary/50">
+    <section className="py-16 bg-gray-100" id="get-involved">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get Involved</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            There are many ways you can join us in our mission to transform communities across Ghana. 
-            Every contribution, big or small, makes a meaningful difference.
-          </p>
+        <h2 className="text-3xl font-bold text-center mb-12">Get Involved</h2>
+
+        {/* Cards */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {/* Donate */}
+          <Card>
+            <CardHeader>
+              <div className="w-12 h-12 bg-primary text-white flex items-center justify-center rounded-full mx-auto">
+                <Heart />
+              </div>
+              <CardTitle className="text-center mt-2">Donate</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center">
+              <p className="mb-4">Support our mission with a financial contribution.</p>
+              <div className="flex flex-wrap justify-center gap-2 mb-4">
+                {[25, 50, 100, 250].map(amount => (
+                  <Button
+                    key={amount}
+                    variant={selectedAmount === amount ? 'default' : 'outline'}
+                    onClick={() => setSelectedAmount(amount)}
+                  >
+                    ${amount}
+                  </Button>
+                ))}
+              </div>
+              <Button onClick={handleDonateClick}>
+                Donate Now <Heart className="ml-2 w-4 h-4" />
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Volunteer */}
+          <Card>
+            <CardHeader>
+              <div className="w-12 h-12 bg-gray-200 text-primary flex items-center justify-center rounded-full mx-auto">
+                <Users />
+              </div>
+              <CardTitle className="text-center mt-2">Volunteer</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center">
+              <p className="mb-4">Join us in making a difference.</p>
+              <Button
+                onClick={() => {
+                  setShowVolunteerForm(true);
+                  setShowPartnerForm(false);
+                }}
+              >
+                Join as Volunteer <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Partner */}
+          <Card>
+            <CardHeader>
+              <div className="w-12 h-12 bg-gray-200 text-primary flex items-center justify-center rounded-full mx-auto">
+                <Handshake />
+              </div>
+              <CardTitle className="text-center mt-2">Partner with Us</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center">
+              <p className="mb-4">Collaborate for greater impact.</p>
+              <Button
+                onClick={() => {
+                  setShowPartnerForm(true);
+                  setShowVolunteerForm(false);
+                }}
+              >
+                Partner with Us <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </CardContent>
+          </Card>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {ways.map((way, index) => (
-            <Card key={index} className={`text-center border-none shadow-lg hover:shadow-xl transition-shadow ${way.highlight ? 'ring-2 ring-primary' : ''}`}>
-              <CardHeader>
-                <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
-                  way.highlight ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'
-                }`}>
-                  <way.icon className="h-8 w-8" />
-                </div>
-                <CardTitle className="text-xl">{way.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-6">{way.description}</p>
-                <Button 
-                  className={way.highlight ? 'bg-primary hover:bg-primary/90 w-full' : 'w-full'} 
-                  variant={way.highlight ? 'default' : 'outline'}
-                  onClick={way.onClick}
-                >
-                  {way.action}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Enhanced Donation Section */}
-        <div className="bg-primary text-primary-foreground rounded-lg p-8 md:p-12 animate-scale-in">
-          <div className="text-center max-w-3xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4 animate-fade-in">Make a Difference Today</h3>
-            <p className="text-lg text-primary-foreground/80 mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Your donation directly supports our programs and helps us reach more communities. 
-              Every contribution creates ripples of positive change that last for generations.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-              {['$25', '$50', '$100', '$250'].map((amount, index) => (
-                <Button 
-                  key={amount} 
-                  variant={selectedAmount === amount ? "default" : "outline"} 
-                  className={`border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300 animate-fade-in ${
-                    selectedAmount === amount ? 'bg-primary-foreground text-primary scale-105' : ''
-                  }`}
-                  style={{ animationDelay: `${0.1 * index}s` }}
-                  onClick={() => handleAmountSelect(amount)}
-                >
-                  {amount}
-                </Button>
-              ))}
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8 transition-all duration-300 hover:scale-105"
-                onClick={handleCustomAmount}
-              >
-                Custom Amount
+        {/* Volunteer Form */}
+        {showVolunteerForm && (
+          <div className="bg-white p-6 rounded shadow mb-10">
+            <h3 className="text-xl font-semibold mb-4">Volunteer Form</h3>
+            <form onSubmit={handleVolunteerSubmit}>
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={volunteerData.name}
+                onChange={e => setVolunteerData({ ...volunteerData, name: e.target.value })}
+                className="w-full p-2 mb-3 border rounded"
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={volunteerData.email}
+                onChange={e => setVolunteerData({ ...volunteerData, email: e.target.value })}
+                className="w-full p-2 mb-3 border rounded"
+                required
+              />
+              <textarea
+                placeholder="Message"
+                value={volunteerData.message}
+                onChange={e => setVolunteerData({ ...volunteerData, message: e.target.value })}
+                className="w-full p-2 mb-3 border rounded"
+                rows={4}
+                required
+              />
+              <Button type="submit" className="w-full">
+                Submit
               </Button>
-              <Button 
-                size="lg" 
-                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 px-8 transition-all duration-300 hover:scale-105"
-                onClick={handleDonate}
-              >
-                Donate Now
-                <Heart className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
+            </form>
           </div>
-        </div>
-      </div>
+        )}
 
-      <PaymentModal 
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        amount={selectedAmount || '$0'}
-      />
+        {/* Partner Form */}
+        {showPartnerForm && (
+          <div className="bg-white p-6 rounded shadow mb-10">
+            <h3 className="text-xl font-semibold mb-4">Partnership Form</h3>
+            <form onSubmit={handlePartnerSubmit}>
+              <input
+                type="text"
+                placeholder="Organization Name"
+                value={partnerData.org}
+                onChange={e => setPartnerData({ ...partnerData, org: e.target.value })}
+                className="w-full p-2 mb-3 border rounded"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Contact Person"
+                value={partnerData.contact}
+                onChange={e => setPartnerData({ ...partnerData, contact: e.target.value })}
+                className="w-full p-2 mb-3 border rounded"
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={partnerData.email}
+                onChange={e => setPartnerData({ ...partnerData, email: e.target.value })}
+                className="w-full p-2 mb-3 border rounded"
+                required
+              />
+              <textarea
+                placeholder="Message"
+                value={partnerData.message}
+                onChange={e => setPartnerData({ ...partnerData, message: e.target.value })}
+                className="w-full p-2 mb-3 border rounded"
+                rows={4}
+                required
+              />
+              <Button type="submit" className="w-full">
+                Submit
+              </Button>
+            </form>
+          </div>
+        )}
+
+        {/* Payment Modal */}
+        <PaymentModal
+          isOpen={isPaymentModalOpen}
+          onClose={() => setIsPaymentModalOpen(false)}
+          amount={selectedAmount ? `$${selectedAmount}` : '$0'}
+        />
+      </div>
     </section>
   );
 };

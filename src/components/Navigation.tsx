@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Heart, Menu, X } from 'lucide-react';
 
+
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -44,13 +45,7 @@ const Navigation = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
-              <Heart className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-foreground">Mentors Foundation</span>
-              <span className="text-xs text-muted-foreground">Ghana</span>
-            </div>
+           
           </Link>
 
           {/* Desktop Navigation */}

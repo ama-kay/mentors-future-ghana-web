@@ -8,27 +8,68 @@ import { ArrowRight, Calendar } from 'lucide-react';
 const News = () => {
   const newsItems = [
     {
-      title: "New Education Center Opens in Northern Ghana",
-      excerpt: "We're excited to announce the opening of our latest education center, which will serve over 200 children in the Northern Region.",
-      date: "March 15, 2024",
+      title: "Trokosi Research Kick Off Meeting with Rutgers University Team",
+      excerpt: "",
+      date: "July,2025",
       category: "Education",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      // image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
     },
     {
-      title: "Healthcare Outreach Reaches 1,000 Beneficiaries",
-      excerpt: "Our recent healthcare campaign provided free medical screenings and treatments to over 1,000 community members across 5 villages.",
-      date: "March 10, 2024",
-      category: "Healthcare",
-      image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      title: " Inter-Organizational Outing & Get together",
+      excerpt: "",
+      date: "July 1st 2025",
+      category: "Fun",
+      image: "/images/mentorsgh10.jpg"
+
     },
     {
-      title: "Tree Planting Initiative Exceeds Goals",
-      excerpt: "Thanks to our volunteers and community partners, we've planted over 10,000 trees this year, surpassing our initial goal of 8,000.",
-      date: "March 5, 2024",
-      category: "Environment",
-      image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      title: " Proposed MTN Foundation Sponsored Skill Job Training",
+      excerpt: "",
+      date: "August 2025-December 2027",
+      category: "Education",
+      // image: "/images/mentorsgh10.jpg"
+
+    },
+    {
+      title: " Trokosi Research Data Collection/Focus Group Discussion stage.",
+      excerpt: "",
+      date: "September 2025",
+      category: "Education",
+      // image: "/images/mentorsgh10.jpg"
+
+    },
+    {
+      title: " University of Ghana Campus Mental Health Awareness",
+      excerpt: "",
+      date: "July-August 2025",
+      category: "Education / Health",
+      // image: "/images/mentorsgh10.jpg"
+
+    },
+    {
+      title: " Tamale Central Prison Health Screening & Skill Job Training outreach",
+      excerpt: "",
+      date: "Aug/September 2025",
+      category: "Health",
+      // image: "/images/mentorsgh10.jpg"
+
+    },{
+      title: " Germany Mental Health conference",
+      excerpt: "",
+      date: "October 2025",
+      category: "Education",
+      // image: "/images/mentorsgh10.jpg"
+
+    },{
+      title: " End of Year Dinner and Awards Night at Peduase Valley Resort Hotel. Aburi-Eastern Region-Ghana",
+      excerpt: "",
+      date: "December 2025",
+      category: "Fun",
+      // image: "/images/mentorsgh10.jpg"
+
     }
   ];
+     
 
   return (
     <section id="news" className="py-20 bg-secondary/50">
@@ -74,10 +115,10 @@ const News = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button size="lg" variant="outline">
+          {/* <Button size="lg" variant="outline">
             View All News
             <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          </Button> */}
         </div>
       </div>
     </section>

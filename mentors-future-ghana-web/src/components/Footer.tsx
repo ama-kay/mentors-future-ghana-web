@@ -14,7 +14,7 @@ const Footer = () => {
   const handleSocialClick = (platform: string) => {
     console.log(`${platform} clicked`);
     // For now, just log the action
-    alert(`This will link to our ${platform} page when connected.`);
+    alert(`This will link to our ${platform} page when connect.`);
   };
 
   return (

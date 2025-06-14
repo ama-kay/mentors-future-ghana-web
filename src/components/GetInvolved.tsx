@@ -7,13 +7,10 @@ import PaymentModal from './PaymentModal';
 const GetInvolved = () => {
   const [selectedAmount, setSelectedAmount] = useState<string | null>(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const [volunteerInfo, setVolunteerInfo] = useState({ name: '', email: '', message: '' });
+  const [partnerInfo, setPartnerInfo] = useState({ organization: '', contactName: '', email: '', message: '' });
+  const [isVolunteerFormVisible, setIsVolunteerFormVisible] = useState(false);
+  const [isPartnerFormVisible, setIsPartnerFormVisible] = useState(false);
 
   const handleDonate = () => {
     if (selectedAmount) {
@@ -23,27 +20,30 @@ const GetInvolved = () => {
     }
   };
 
-  const handleVolunteer = () => {
-    console.log('Volunteer button clicked');
-    scrollToSection('contact');
+  const handleVolunteerToggle = () => {
+    setIsVolunteerFormVisible(!isVolunteerFormVisible);
+    if (isPartnerFormVisible) setIsPartnerFormVisible(false);
   };
 
-  const handlePartnership = () => {
-    console.log('Partnership button clicked');
-    scrollToSection('contact');
+  const handlePartnershipToggle = () => {
+    setIsPartnerFormVisible(!isPartnerFormVisible);
+    if (isVolunteerFormVisible) setIsVolunteerFormVisible(false);
   };
 
-  const handleAmountSelect = (amount: string) => {
-    setSelectedAmount(amount);
-    console.log(`Selected donation amount: ${amount}`);
+  const handleVolunteerSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Volunteer Info:', volunteerInfo);
+    alert('Thank you for volunteering! We will be in touch.');
+    setVolunteerInfo({ name: '', email: '', message: '' });
+    setIsVolunteerFormVisible(false);
   };
 
-  const handleCustomAmount = () => {
-    const amount = prompt('Please enter your custom donation amount:');
-    if (amount) {
-      setSelectedAmount(`$${amount}`);
-      console.log(`Custom donation amount: $${amount}`);
-    }
+  const handlePartnerSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Partnership Info:', partnerInfo);
+    alert('Thank you for your interest in partnering with us! We will be in touch.');
+    setPartnerInfo({ organization: '', contactName: '', email: '', message: '' });
+    setIsPartnerFormVisible(false);
   };
 
   const ways = [
@@ -60,16 +60,16 @@ const GetInvolved = () => {
       title: "Volunteer",
       description: "Join our team of dedicated volunteers and make a direct impact in your local community.",
       action: "Join as Volunteer",
-      highlight: false,
-      onClick: handleVolunteer
+      highlight: true,
+      onClick: handleVolunteerToggle
     },
     {
       icon: Handshake,
       title: "Partner with Us",
       description: "Collaborate with us as a corporate partner or organization to amplify our collective impact.",
-      action: "Explore Partnerships",
-      highlight: false,
-      onClick: handlePartnership
+      action: "Partner With Us",
+      highlight: true,
+      onClick: handlePartnershipToggle
     }
   ];
 
@@ -110,7 +110,6 @@ const GetInvolved = () => {
           ))}
         </div>
 
-        {/* Enhanced Donation Section */}
         <div className="bg-primary text-primary-foreground rounded-lg p-8 md:p-12 animate-scale-in">
           <div className="text-center max-w-3xl mx-auto">
             <h3 className="text-2xl md:text-3xl font-bold mb-4 animate-fade-in">Make a Difference Today</h3>
@@ -118,9 +117,9 @@ const GetInvolved = () => {
               Your donation directly supports our programs and helps us reach more communities. 
               Every contribution creates ripples of positive change that last for generations.
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-              {['$25', '$50', '$100', '$250'].map((amount, index) => (
+              {['Ghc25', 'Ghc50', 'Ghc100', 'Ghc250'].map((amount, index) => (
                 <Button 
                   key={amount} 
                   variant={selectedAmount === amount ? "default" : "outline"} 
@@ -128,19 +127,24 @@ const GetInvolved = () => {
                     selectedAmount === amount ? 'bg-primary-foreground text-primary scale-105' : ''
                   }`}
                   style={{ animationDelay: `${0.1 * index}s` }}
-                  onClick={() => handleAmountSelect(amount)}
+                  onClick={() => setSelectedAmount(amount)}
                 >
                   {amount}
                 </Button>
               ))}
             </div>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <Button 
                 size="lg" 
                 variant="outline" 
                 className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8 transition-all duration-300 hover:scale-105"
-                onClick={handleCustomAmount}
+                onClick={() => {
+                  const amount = prompt('Please enter your custom donation amount:');
+                  if (amount) {
+                    setSelectedAmount(`$${amount}`);
+                  }
+                }}
               >
                 Custom Amount
               </Button>
@@ -155,6 +159,107 @@ const GetInvolved = () => {
             </div>
           </div>
         </div>
+
+        {/* Volunteer Form */}
+        {isVolunteerFormVisible && (
+          <div className="mt-10 bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-bold mb-4">Volunteer Form</h3>
+            <form onSubmit={handleVolunteerSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="volunteer-name">Name</label>
+                <input
+                  type="text"
+                  id="volunteer-name"
+                  value={volunteerInfo.name}
+                  onChange={(e) => setVolunteerInfo({ ...volunteerInfo, name: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="volunteer-email">Email</label>
+                <input
+                  type="email"
+                  id="volunteer-email"
+                  value={volunteerInfo.email}
+                  onChange={(e) => setVolunteerInfo({ ...volunteerInfo, email: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="volunteer-message">Message</label>
+                <textarea
+                  id="volunteer-message"
+                  value={volunteerInfo.message}
+                  onChange={(e) => setVolunteerInfo({ ...volunteerInfo, message: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  rows={4}
+                  required
+                />
+              </div>
+              <Button type="submit" className="bg-primary text-white w-full">
+                Submit
+              </Button>
+            </form>
+          </div>
+        )}
+
+        {/* Partnership Form */}
+        {isPartnerFormVisible && (
+          <div className="mt-10 bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-bold mb-4">Partnership Form</h3>
+            <form onSubmit={handlePartnerSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="organization">Organization</label>
+                <input
+                  type="text"
+                  id="organization"
+                  value={partnerInfo.organization}
+                  onChange={(e) => setPartnerInfo({ ...partnerInfo, organization: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="contact-name">Contact Name</label>
+                <input
+                  type="text"
+                  id="contact-name"
+                  value={partnerInfo.contactName}
+                  onChange={(e) => setPartnerInfo({ ...partnerInfo, contactName: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="partner-email">Email</label>
+                <input
+                  type="email"
+                  id="partner-email"
+                  value={partnerInfo.email}
+                  onChange={(e) => setPartnerInfo({ ...partnerInfo, email: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="partner-message">Message</label>
+                <textarea
+                  id="partner-message"
+                  value={partnerInfo.message}
+                  onChange={(e) => setPartnerInfo({ ...partnerInfo, message: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  rows={4}
+                  required
+                />
+              </div>
+              <Button type="submit" className="bg-primary text-white w-full">
+                Submit
+              </Button>
+            </form>
+          </div>
+        )}
       </div>
 
       <PaymentModal 

@@ -73,9 +73,9 @@ const Contact = () => {
                   <div>
                     <h4 className="font-semibold mb-1">Our Address</h4>
                     <p className="text-muted-foreground">
-                      123 Community Center Street<br />
-                      Accra, Ghana<br />
-                      P.O. Box 12345
+                      Ghana-Korea Centre, University Of Ghana.<br />
+                      Legon,Accra-Ghana<br />
+                      P.O. Box LG 666
                     </p>
                   </div>
                 </div>
@@ -87,8 +87,8 @@ const Contact = () => {
                   <div>
                     <h4 className="font-semibold mb-1">Phone Numbers</h4>
                     <p className="text-muted-foreground">
-                      Main: +233 123 456 789<br />
-                      WhatsApp: +233 987 654 321
+                      Main: +233 59 325 2660<br />
+                      WhatsApp: +233 24 057
                     </p>
                   </div>
                 </div>
@@ -100,8 +100,8 @@ const Contact = () => {
                   <div>
                     <h4 className="font-semibold mb-1">Email Addresses</h4>
                     <p className="text-muted-foreground">
-                      General: info@mentorsfoundationghana.org<br />
-                      Programs: programs@mentorsfoundationghana.org
+                      General: mentorsnbp@gmail.com<br />
+                       
                     </p>
                   </div>
                 </div>
@@ -113,9 +113,8 @@ const Contact = () => {
                   <div>
                     <h4 className="font-semibold mb-1">Office Hours</h4>
                     <p className="text-muted-foreground">
-                      Monday - Friday: 8:00 AM - 5:00 PM<br />
-                      Saturday: 9:00 AM - 2:00 PM<br />
-                      Sunday: Closed
+                      Monday - Sunday: 12:00 AM -11:59 PM<br />
+
                     </p>
                   </div>
                 </div>

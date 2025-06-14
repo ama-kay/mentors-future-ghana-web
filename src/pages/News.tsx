@@ -21,7 +21,7 @@ const NewsPage = () => {
         />
         <div className="relative z-10 container mx-auto px-4 text-center text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-            Latest <span className="text-primary">News</span>
+            Recent <span className="text-yellow-400">Updates</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-scale-in" style={{ animationDelay: '0.3s' }}>
             Stay updated with our latest initiatives and community impact stories.

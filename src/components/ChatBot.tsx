@@ -136,7 +136,7 @@ const ChatBot = () => {
                   className={`flex gap-2 animate-fade-in ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
                   {!message.isUser && (
-                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 animate-scale-in">
+                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center center flex-shrink-0 animate-scale-in">
                       <Bot className="h-4 w-4 text-primary" />
                     </div>
                   )}

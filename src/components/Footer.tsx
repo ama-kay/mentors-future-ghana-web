@@ -25,11 +25,11 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4 cursor-pointer" onClick={() => scrollToSection('home')}>
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
-                <Heart className="h-6 w-6 text-primary-foreground" />
+                {/* <Heart className="h-6 w-6 text-primary-foreground" /> */}
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-bold">Mentors Foundation</span>
-                <span className="text-xs text-gray-400">Ghana</span>
+                {/* <span className="text-lg font-bold"></span>
+                <span className="text-xs text-gray-400"></span> */}
               </div>
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
@@ -105,7 +105,7 @@ const Footer = () => {
                   onClick={() => scrollToSection('news')}
                   className="text-gray-300 hover:text-white transition-colors text-left"
                 >
-                  News & Updates
+                   Updates
                 </button>
               </li>
               <li>
@@ -129,11 +129,12 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-primary" />
-                <span className="text-gray-300 text-sm">+233 123 456 789</span>
+                <span className="text-gray-300 text-sm">+233 240574814</span>
+                <span className="text-gray-300 text-sm">+233 593252660</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-primary" />
-                <span className="text-gray-300 text-sm">info@mentorsfoundationghana.org</span>
+                <span className="text-gray-300 text-sm">mentorsnbp@gmail.com</span>
               </div>
             </div>
           </div>
@@ -143,7 +144,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 Mentors Foundation Ghana. All rights reserved.
+              © 2025 Mentors Foundation Ghana. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <button 
@@ -158,12 +159,12 @@ const Footer = () => {
               >
                 Terms of Service
               </button>
-              <button 
+              {/* <button 
                 onClick={() => alert('Annual Reports page coming soon!')}
                 className="text-gray-400 hover:text-white text-sm transition-colors"
               >
                 Annual Reports
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

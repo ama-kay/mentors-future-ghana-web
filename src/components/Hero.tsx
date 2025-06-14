@@ -26,7 +26,10 @@ const Hero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/mentorsgh7.jpg")',
+            backgroundSize: 'cover', // Ensures the image covers the entire area
+            backgroundPosition: 'center 25%', // Change to 'center top' to bring heads down
+            zIndex: 0,
         }}
       />
       
@@ -35,7 +38,7 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             Empowering Communities,
-            <span className="text-primary"> Transforming Lives</span>
+            <span className="text-yellow-400"> Transforming Lives</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">
             Mentors Foundation Ghana is dedicated to creating sustainable change through education, 
